@@ -26,11 +26,11 @@ A guest-token is generated and sent back to the frontend application that saves 
 Note: The user-id is never shared with the front-end application. The operations service has to pass a special request parameter in the header to recieve the user-id corresponding to the token.
 
 To Do:	
-1. Write a cron to delete the tokens which have been inactive for more than 10 minutes.
-2. Implement a refresh-token, using which a user's session can be refreshed/extended if the his guest-token has expired. The refresh-token would have a longer lifespan.
-3. Store signup_platform, user-details (gender, dob, city) and utm-source/utm-medium for the purpose of analytics.
-4. Admin panel for adding new roles and their access-controls.
-5. Improve exception handling
+* Write a cron to delete the tokens which have been inactive for more than 10 minutes.
+* Implement a refresh-token, using which a user's session can be refreshed/extended if the his guest-token has expired. The refresh-token would have a longer lifespan.
+* Store signup_platform, user-details (gender, dob, city) and utm-source/utm-medium for the purpose of analytics.
+* Admin panel for adding new roles and their access-controls.
+* Improve exception handling
 
 ### Operations Service
 
@@ -48,19 +48,20 @@ The following API endpoints are available in the operations service.
 The POST and DELETE APIs have restricted access. Only users with role = admin can access these APIs. "Deleting" a job means that the 'is_active' status of the job row in the DB is set to 0. No job is actually deleted, so that the Admin has the history of all jobs that have been added ever. 
 
 To Do:	
-1. Implement a Redis cache, to cache the results for GET /jobs/me, GET /jobs/{seo_title} and GET /jobs.
-2. Save a log of all changes made to the job table. This can help in keeping track of admin activity. Also, the cases where the same job is updated with a new start-date and end-date post it's expiration, this log can help track which user applied/saved the job during which period.
+* Implement a Redis cache, to cache the results for GET /jobs/me, GET /jobs/{seo_title} and GET /jobs.
+* Save a log of all changes made to the job table. This can help in keeping track of admin activity. Also, the cases where the same job is updated with a new start-date and end-date post it's expiration, this log can help track which user applied/saved the job during which period.
 Alternatively, we can also never delete a particular job row. On update, only clone the existing row with new details.
-3. Write a cron to activate and schedule jobs.
-4. Implement attributes of job like company, years of experience, technologies, salary, job-type etc and filter based on them
-5. Improve exception handling
+* Write a cron to activate and schedule jobs.
+* Implement attributes of job like company, years of experience, technologies, salary, job-type etc and filter based on them
+* Improve exception handling
 
 ### Main frontend
 
 To Do:
-1. Separate header and include in home and admin-home 
-2. Minimize js and css
-3. Improve exception handling
+* Admin panel pages and save/unsave feature
+* Separate header and include in home and admin-home 
+* Minimize js and css
+* Improve exception handling
 
 ## Built With
 
