@@ -44,7 +44,7 @@ var socialLogin = (function () {
 
         $.post(Config.BASE_URL + '/login', post_data,
                 function (data) {
-                   //console.log(data.url);
+                   console.log(data);
                     if (data.success == 'true') {
                         location.reload();
                     }

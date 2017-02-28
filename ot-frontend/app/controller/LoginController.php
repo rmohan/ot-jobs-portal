@@ -37,7 +37,7 @@ class LoginController extends Controller
         }
 
         $result = $this->login_service->login($this->request_params);
-
+//var_dump($result); exit();
         return $this->response->withJson($result);
 
 	}

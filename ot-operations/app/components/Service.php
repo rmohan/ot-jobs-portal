@@ -22,7 +22,8 @@ class Service
         $headers[] = 'X-REQUEST-SOURCE: OPS';
 
         if (!empty($this->auth_token)) {
-            $headers[] = 'X-OT-ACCESS-TOKEN: ' . $this->auth_token;
+            //$headers[] = 'X-OT-ACCESS-TOKEN: ' . $this->auth_token;
+            curl_setopt($curl, CURLOPT_USERPWD, $this->auth_token . ":" . 'X');
         }
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);

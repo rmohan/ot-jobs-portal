@@ -18,7 +18,8 @@ class Service
             "Content-Type: $contentType"
         ];
         if (isset($_SESSION['access_token'])) {
-            $headers[] = 'X-OT-ACCESS-TOKEN: ' . $_SESSION['access_token'];
+            //$headers[] = 'X-OT-ACCESS-TOKEN: ' . $_SESSION['access_token'];
+            curl_setopt($curl, CURLOPT_USERPWD, $_SESSION['access_token'] . ":" . 'X');
         }
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);

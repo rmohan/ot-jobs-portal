@@ -18,11 +18,11 @@ class ProcessRequest
 	public function __invoke(Request $request, Response $response, callable $next)
     { 
 
-    	$token = $request->getHeader('X-OT-ACCESS-TOKEN');
+    	$token = $this->_getAuthHeader(); //$request->getHeader('X-OT-ACCESS-TOKEN');
 
         if(isset($token) && !empty($token))
         {
-            $this->container['auth_token'] = $token[0];
+            $this->container['auth_token'] = $token;
         }
         else
         {
@@ -40,6 +40,18 @@ class ProcessRequest
 
         return $response;
 
+    }
+
+    private function _getAuthHeader()
+    {
+        if (!isset($_SERVER['PHP_AUTH_USER'])) {
+            if (isset($_SERVER['Authorization'])) {
+                list($_SERVER['PHP_AUTH_USER'], ) = explode(':', base64_decode(substr($_SERVER['Authorization'], 6)));
+            } else {
+                throw new \Exception('Required Authorization header is invalid or empty', 480);
+            }
+        }
+        return $_SERVER['PHP_AUTH_USER'];
     }
 }
 
