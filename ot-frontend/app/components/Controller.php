@@ -107,7 +107,6 @@ class Controller
 
 	public function executeAction($action, $args = NULL, $params = NULL)
     {
-        
         //$this->checkAccess($action);
         
         if (isset($args)) 
@@ -129,18 +128,7 @@ class Controller
         
         return $this->$action();
         
-    }
-
-    private function checkAccess($action)
-    {
-        $rules = $this->denyAccessRules();
-        //$user_role = $this->userState;
-        if (isset($rules[$action])) {
-            /*if ($rules[$action] === 'user' && $userState->getIsGuest()) {
-                throw new Exception('You are not allowed to access this endpoint', Constants::$errorCodes['NOT_AUTHORIZED'], false);
-            }*/
-        }
-    }    
+    }  
 
     protected function throwError($message)
     {

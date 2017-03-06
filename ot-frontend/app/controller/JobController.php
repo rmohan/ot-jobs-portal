@@ -100,7 +100,7 @@ class JobController extends Controller
             $job = $this->ops_service->delete($this->params['id']);
         }
 
-        return $this->response->withHeader('Location', $this->container->('site_base_url').'/admin/jobs');
+        return $this->response->withHeader('Location', $this->container->get('site_base_url').'/admin/jobs');
     }  
 
     public function save()
@@ -110,7 +110,7 @@ class JobController extends Controller
             $job = $this->ops_service->save($this->params['id']);
         }
 
-        return $this->response->withHeader('Location', $this->container->('site_base_url'));
+        return $this->response->withHeader('Location', $this->container->get('site_base_url'));
     }
 
     public function unsave()
@@ -120,7 +120,7 @@ class JobController extends Controller
             $job = $this->ops_service->unsave($this->params['id']);
         }
 
-        return $this->response->withHeader('Location', $this->container->('site_base_url'));
+        return $this->response->withHeader('Location', $this->container->get('site_base_url'));
     }
 }
 

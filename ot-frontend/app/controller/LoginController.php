@@ -51,7 +51,7 @@ class LoginController extends Controller
 		    'default_graph_version' => 'v2.8',
 		    ]);
 
-		$callback = $this->container->('site_base_url').'/login/fb_callback';
+		$callback = $this->container->get('site_base_url').'/login/fb_callback';
 
 		$helper = $fb->getRedirectLoginHelper();
 
@@ -82,7 +82,7 @@ class LoginController extends Controller
 
 		$helper = $fb->getRedirectLoginHelper();
 
-		$callback = $this->container->('site_base_url').'/login/fb_callback';
+		$callback = $this->container->get('site_base_url').'/login/fb_callback';
 
 		try {
 		    $accessToken = $helper->getAccessToken($callback);
