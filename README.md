@@ -41,7 +41,7 @@ The following API endpoints are available in the operations service.
     GET /jobs 
     GET /jobs/me               
     GET /jobs/{seo_title}
-    DELETE /jobs/{seo_title}
+    POST /jobs/{seo_title}/delete
     POST /jobs/{seo_title}/save
     POST /jobs/{seo_title}/unsave 
 
@@ -58,8 +58,6 @@ Alternatively, we can also never delete a particular job row. On update, only cl
 ### Main frontend
 
 To Do:
-* Admin panel pages and save/unsave feature
-* Separate header and include in home and admin-home 
 * Minimize js and css
 * Improve exception handling
 

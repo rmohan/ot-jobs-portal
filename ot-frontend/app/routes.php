@@ -5,12 +5,14 @@ class Routes
     public static $routes = [
         'logout' => [
             'controller' => 'LoginController',
+            'permission' => '',
             'actions' => [
                 '' => 'logout'
             ]
         ],
         'login' => [
             'controller' => 'LoginController',
+            'permission' => '',
             'actions' => [
                 '' => 'login',
                 'facebook' => 'facebook',
@@ -20,6 +22,7 @@ class Routes
         ],
         'jobs' => [
             'controller' => 'JobController',
+            'permission' => '',
             'actions' => [
                 '' => 'all',
                 'me' => 'saved',
@@ -30,10 +33,12 @@ class Routes
         ],
         'admin' => [
             'controller' => 'AdminHomeController',
+            'permission' => 'admin',
             'actions' => [
                 '' => 'index',
                 'jobs' => [
                     'controller' => 'JobController',
+                    'permission' => 'admin',
                     'actions' => [
                         '' => 'index',
                         'create' => 'create',

@@ -17,9 +17,8 @@ class Controller
 		$this->request = $this->container->get('request');
 	}
 
-	public function validateRequest() 
+	public function validateRequest($extra_request_params = []) 
 	{
-
 		if($this->request->getMethod() == 'GET')
 		{
 			$request_params = $this->request->getQueryParams();
@@ -28,6 +27,11 @@ class Controller
         {
             $request_params = $this->request->getParsedBody();
         }
+
+        if(!isset($request_params))
+            $request_params = [];
+        
+        $request_params = array_merge($request_params, $extra_request_params);
 
         foreach ($this->rules as $param => $rule) 
         {
@@ -50,7 +54,6 @@ class Controller
             {
                 if (isset($request_params[$param]) && !empty($request_params[$param])) 
                 {
-                    
                     switch ($rule['type']) 
                     {
                         case 'string':
@@ -78,11 +81,12 @@ class Controller
                             break;   
 
                         case 'date':
-                        	$d = DateTime::createFromFormat('Y-m-d H:i:s', $request_params[$param]);
-    						if (!$d || $d->format('Y-m-d H:i:s') !== $request_params[$param])
+                            //var_dump(date(strtotime($request_params[$param])));
+                        	$request_params[$param] = date('Y-m-d H:i:s', strtotime($request_params[$param]));//DateTime::createFromFormat('Y-m-d H:i:s', $request_params[$param]);
+    						/*if (!$d || $d->format('Y-m-d H:i:s') !== $request_params[$param])
     						{
     							return $this->throwError($param . ' value must be a date of form Y-m-d H:i:s');
-    						}
+    						}*/
     						break;
                     }
                 }
@@ -100,7 +104,7 @@ class Controller
             $this->response->setResponseConfig($action);
         }*/
         
-        $this->checkAccess($action);
+        //$this->checkAccess($action);
         
         if (isset($args)) 
         {

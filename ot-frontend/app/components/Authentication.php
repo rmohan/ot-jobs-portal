@@ -39,7 +39,7 @@ class Authentication
     		{
     			$_SESSION['access_token'] = $token['access_token'];
     		}
-            
+
             if(!isset($user_data))
                 $user_data = array('is_guest' => -1);
 

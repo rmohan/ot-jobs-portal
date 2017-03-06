@@ -1,13 +1,8 @@
 <?php 
 
-use modules\common\models\User;
-
-/**
- * Singleton for appwide access to User State
- */
 class UserState
 {
-
+    const ADMIN_ROLE_ID = 2;
     private static $user_state_instance = null;
     private $is_guest;
     private $user_role;
@@ -29,6 +24,12 @@ class UserState
     public function getUserRole()
     {
         return $this->user_role;
+    }
+
+    public function getIsAdmin()
+    {
+        return ($this->user_role == self::ADMIN_ROLE_ID)? true : false;
+
     }
 
     public function setUserState($user_data)

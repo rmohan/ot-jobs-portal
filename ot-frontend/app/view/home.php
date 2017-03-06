@@ -6,7 +6,8 @@
 		var Config = (function() {
 		    return {
 		        BASE_URL: 'http://ot-jobs.com',
-		        is_guest: <?php if($is_guest) {echo "true"; } else { echo "false"; } ?>
+		        is_guest: <?php if($is_guest) {echo "true"; } else { echo "false"; } ?>,
+		        is_admin: <?php if($is_admin) {echo "true"; } else { echo "false"; } ?>
 		    }
 		})();
 	</script>
@@ -14,7 +15,7 @@
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css"/>
-	<script src="../components/assets/app.js"></script>
+	<script src="../../assets/app.js"></script>
 	<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>  
@@ -101,6 +102,9 @@
 			            <thead>
 			                <tr>
 			                    <th>All Jobs</th>
+			                    <?php if(!$is_guest): ?>
+			                    	<th>Action</th>
+			                	<?php endif; ?>
 			                </tr>
 			            </thead>
 
@@ -112,6 +116,7 @@
 			            <thead>
 			                <tr>
 			                    <th>My Jobs</th>
+		                    	<th>Action</th>
 			                </tr>
 			            </thead>
 

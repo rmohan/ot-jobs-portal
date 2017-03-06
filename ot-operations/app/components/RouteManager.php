@@ -95,6 +95,7 @@ class RouteManager
 	                                            $args[$arg] = $path_array[$i + 1];
 	                                        }
 	                                    }
+
 	                                    $result = $controller->executeAction($function, $args, $params);
 	                                    return $res->withStatus($result['status'])->withJson($result['content']);
 	                                }	                                

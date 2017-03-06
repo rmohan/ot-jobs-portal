@@ -46,12 +46,12 @@ class LoginController extends Controller
 	{
 
 		$fb = new Facebook\Facebook([
-		    'app_id' => '251074968653060',
-		    'app_secret' => '19aef6f1831bfb703ffc0108ceb7d363',
+		    'app_id' => $this->container->get('fb_params')['facebook_app_id'],
+		    'app_secret' => $this->container->get('fb_params')['facebook_app_secret'],
 		    'default_graph_version' => 'v2.8',
 		    ]);
 
-		$callback = 'http://ot-jobs.com/login/fb_callback';
+		$callback = $this->container->('site_base_url').'/login/fb_callback';
 
 		$helper = $fb->getRedirectLoginHelper();
 
@@ -75,14 +75,14 @@ class LoginController extends Controller
 	{
 
 		$fb = new Facebook\Facebook([
-		    'app_id' => '251074968653060',
-		    'app_secret' => '19aef6f1831bfb703ffc0108ceb7d363',
+		    'app_id' => $this->container->get('fb_params')['facebook_app_id'],
+		    'app_secret' => $this->container->get('fb_params')['facebook_app_secret'],
 		    'default_graph_version' => 'v2.8',
 		    ]);
 
 		$helper = $fb->getRedirectLoginHelper();
 
-		$callback = 'http://ot-jobs.com/login/fb_callback';
+		$callback = $this->container->('site_base_url').'/login/fb_callback';
 
 		try {
 		    $accessToken = $helper->getAccessToken($callback);

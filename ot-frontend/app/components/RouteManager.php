@@ -22,6 +22,7 @@ class RouteManager
 			
 			$function = '';
 			$controller_name = '';
+			$permission = '';
 
 			$routes = Routes::$routes;
 			$url_path = $req->getAttribute('url_path');
@@ -51,7 +52,8 @@ class RouteManager
 					{
 						if(is_array($routes[$path_array[$i]]) && !empty($routes[$path_array[$i]]))
 						{
-							$controller_name = $routes[$path_array[$i]]['controller'];							
+							$controller_name = $routes[$path_array[$i]]['controller'];	
+							$permission = $routes[$path_array[$i]]['permission'];						
 							$routes = $routes[$path_array[$i]]['actions'];	
 						}
 						else
@@ -64,7 +66,8 @@ class RouteManager
 
 						if(is_array($routes[$matched_key]) && !empty($routes[$matched_key]))
 						{
-							$controller_name = $routes[$matched_key]['controller'];							
+							$controller_name = $routes[$matched_key]['controller'];		
+							$permission = $routes[$matched_key]['permission'];						
 							$routes = $routes[$matched_key]['actions'];	
 						}
 						else
@@ -84,7 +87,7 @@ class RouteManager
 			elseif(count($path_array) == 1)
 			{
 				$controller_name = "HomeController";
-				$controller = new $controller_name($app_container);
+				//$controller = new $controller_name($app_container);
 				$function = "index";
 			}
 
@@ -96,6 +99,13 @@ class RouteManager
 			}
 			else
 			{
+				if($permission == 'admin' && !$app_container->user_state->getIsAdmin())
+				{
+					return $res
+				            ->withStatus(403)
+				            ->write("403: Permission Denied.");
+				}
+				
 				$controller = new $controller_name($app_container);
 				$result = $controller->executeAction($function, $args, $params);
 

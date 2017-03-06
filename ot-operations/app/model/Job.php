@@ -3,16 +3,23 @@
 class Job extends Model
 {
 	
-	protected $fields = ['title', 'description', 'seo_title', 'company_id', 'start_date', 'end_date'];
+	protected $fields = ['title', 'description', 'seo_title', 'start_date', 'end_date', 'added_by_admin', 'priority', 'landing_page_url', 'is_active'];
 
 	public function __construct($query_builder)
 	{
 		parent::__construct($query_builder, 'job');	
 	}
 
+	public function getAll()
+	{
+		$stmt = $this->query_builder->select('title,seo_title,start_date,end_date,is_active')->from($this->table_name);
+		$data = $stmt->execute()->fetchAll();
+		return $data;
+	}
+
 	public function getActive()
 	{
-		$stmt = $this->query_builder->select('title,description')->from($this->table_name);
+		$stmt = $this->query_builder->select('title,seo_title,description')->from($this->table_name);
 
 		$stmt = $stmt->where(
 						$this->query_builder->expr()->andX(
@@ -28,7 +35,7 @@ class Job extends Model
 
 	public function getActiveExceptSaved($user_id)
 	{
-		$stmt = $this->query_builder->select('title,description')->from($this->table_name, 'j')->leftJoin('j', 'user_jobs', 'uj', 'j.id = uj.job_id');
+		$stmt = $this->query_builder->select('title,seo_title,description')->from($this->table_name, 'j')->leftJoin('j', 'user_jobs', 'uj', 'j.id = uj.job_id');
 
 		$stmt = $stmt->where(
 						$this->query_builder->expr()->andX(
@@ -48,7 +55,7 @@ class Job extends Model
 
 	public function getActiveSaved($user_id)
 	{
-		$stmt = $this->query_builder->select('title,description')->from($this->table_name, 'j')->leftJoin('j', 'user_jobs', 'uj', 'j.id = uj.job_id');
+		$stmt = $this->query_builder->select('title,seo_title,description')->from($this->table_name, 'j')->leftJoin('j', 'user_jobs', 'uj', 'j.id = uj.job_id');
 
 		$stmt = $stmt->where(
 						$this->query_builder->expr()->andX(

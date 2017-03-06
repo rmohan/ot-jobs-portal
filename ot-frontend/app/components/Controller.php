@@ -2,7 +2,6 @@
 
 class Controller
 {
-    const ADMIN_ROLE_ID = 2;
 	protected $args;
 	protected $params;
 	protected $container;
@@ -24,10 +23,11 @@ class Controller
     public function render($template, $args = [])
     {
         $args['is_guest'] = $this->container->user_state->getIsGuest();
-        $args['is_admin'] = ($this->container->user_state->getUserRole() == self::ADMIN_ROLE_ID)? true : false;
+        $args['is_admin'] = $this->container->user_state->getIsAdmin();
         $args['user_data'] = $this->container->user_state->getUserData();
 
         $response = $this->renderer->render($this->response, $template, $args);
+
         return $response;
     }
 
